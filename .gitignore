@@ -64,3 +64,4 @@ tests/.cache/
 tests/__pycache__/
 playbook.retry
 .pytest_cache
+.vscode

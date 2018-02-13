@@ -32,6 +32,10 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /sbin/init
+  # - name: ulimit-xenial
+  #   image: solita/ubuntu-systemd
+  #   image_version: latest
+  #   privileged: True
   # - name: fedora-01
   #   image: bossjones/fedora24-systemd-ansible:latest
   #   privileged: True
