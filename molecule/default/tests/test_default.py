@@ -79,9 +79,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 # vm.vfs_cache_pressure = 100
 
 @pytest.mark.parametrize('f',
-                         ["kernel.shmall = 505599",
-                          "kernel.shmmax = 828373402",
-                          "net.ipv4.conf.all.rp_filter = 1",
+                         ["net.ipv4.conf.all.rp_filter = 1",
                           "net.ipv4.conf.default.rp_filter = 1",
                           "net.ipv4.icmp_echo_ignore_broadcasts = 1",
                           "net.ipv4.icmp_ignore_bogus_error_responses = 1",
