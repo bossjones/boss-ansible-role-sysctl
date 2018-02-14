@@ -21,21 +21,21 @@ platforms:
   # source: https://github.com/solita/docker-systemd
   # source: https://github.com/solita/docker-systemd-ssh/blob/master/Dockerfile
   # start_command: docker run -d --name systemd --security-opt seccomp=unconfined --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro -t solita/ubuntu-systemd
+  # - name: boss-ansible-role-sysctl-trusty
+  #   image: solita/ubuntu-systemd
+  #   image_version: latest
+  #   privileged: True
+  #   groups:
+  #       - servers
+  #   capabilities:
+  #     - SYS_ADMIN
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  #   command: /sbin/init
   - name: boss-ansible-role-sysctl-trusty
     image: solita/ubuntu-systemd
     image_version: latest
     privileged: True
-    groups:
-        - servers
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /sbin/init
-  # - name: ulimit-xenial
-  #   image: solita/ubuntu-systemd
-  #   image_version: latest
-  #   privileged: True
   # - name: fedora-01
   #   image: bossjones/fedora24-systemd-ansible:latest
   #   privileged: True
@@ -85,7 +85,7 @@ verifier:
 scenario:
   name: default
   test_sequence:
-    - destroy
+    # - destroy
     - dependency
     - syntax
     - create
@@ -94,7 +94,7 @@ scenario:
     - lint
     - side_effect
     - verify
-    - destroy
+    # - destroy
 
 
 
