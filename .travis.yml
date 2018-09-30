@@ -41,8 +41,8 @@ matrix:
   #     dist: xenial
   #     if: branch = master AND type = push
   # allow_failures:
-  #   - python: "3.8-dev"
-  #     env: TOXENV=py38
+  #   - python: "2.7"
+  #     env: TOX_ENV=py27-ansible27
   #     dist: xenial
 
 cache:
