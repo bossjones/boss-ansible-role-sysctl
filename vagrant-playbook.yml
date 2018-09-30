@@ -7,3 +7,25 @@
       bossjones__group: root
 
 
+---
+---
+# no_log: true
+# FIXME: NEW 9/28/2018
+- hosts: servers
+  gather_facts: True
+  become: yes
+  become_method: sudo
+  environment:
+    SHELL: /bin/bash
+  tags:
+    - sysctl
+  roles:
+    - role: boss-ansible-role-bootstrap
+    - role: boss-ansible-role-core
+    - role: boss-ansible-role-fact
+    - role: boss-ansible-role-environment
+    - role: boss-ansible-role-etckeeper
+    - role: boss-ansible-role-sysctl
+      bossjones__user: root
+      bossjones__group: root
+
