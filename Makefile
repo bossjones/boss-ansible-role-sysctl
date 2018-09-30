@@ -256,3 +256,7 @@ ping:
 # EXAMPLE: ansible-playbook -i inventory —private-key=~/.vagrant.d/insecure_private_key -u vagrant playbook.yml —tags=”phpconf”
 run-playbook:
 	echo "running playbook"
+
+
+download-roles:
+	ansible-galaxy install -r requirements.yml --roles-path ./roles/

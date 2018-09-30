@@ -1,0 +1,36 @@
+---
+# no_log: true
+- name: Vagrant Test Playbook
+  hosts: servers
+  gather_facts: True
+  become: yes
+  become_method: sudo
+  environment:
+    SHELL: /bin/bash
+  tags:
+    - sysctl
+  roles:
+    - role: boss-ansible-role-bootstrap
+    - role: boss-ansible-role-core
+    - role: boss-ansible-role-fact
+    - role: boss-ansible-role-environment
+    - role: boss-ansible-role-etckeeper
+    - role: ../
+      bossjones__user: root
+      bossjones__group: root
+      boss__sysctl__host_parameters:
+        'net.ipv6.conf.all.disable_ipv6':
+          value: 1
+          comment: |
+            Disable IPv6 on all interfaces.
+          state: "present"
+        # 'net.ipv6.conf.default.disable_ipv6':
+        #   value: 1
+        #   comment: |
+        #     Disable IPv6 on default interface.
+        #   state: "present"
+        # 'net.ipv6.conf.lo.disable_ipv6':
+        #   value: 1
+        #   comment: |
+        #     Disable IPv6 on loopback.
+        #   state: "present"
