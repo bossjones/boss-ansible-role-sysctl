@@ -79,18 +79,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 # vm.vfs_cache_pressure = 100
 
 @pytest.mark.parametrize('f',
-                         ["net.ipv4.conf.all.rp_filter = 1",
-                          "net.ipv4.conf.default.rp_filter = 1",
-                          "net.ipv4.icmp_echo_ignore_broadcasts = 1",
-                          "net.ipv4.icmp_ignore_bogus_error_responses = 1",
-                          "net.ipv4.icmp_ratelimit = 100",
-                          "net.ipv4.icmp_ratemask = 88089",
-                          "net.ipv4.ip_forward = 0",
-                          "net.ipv6.conf.all.accept_ra = 0",
-                          "net.ipv6.conf.all.forwarding = 0",
-                          "net.ipv6.conf.default.accept_ra = 0",
-                          "vm.swappiness = 60",
-                          "vm.vfs_cache_pressure = 100"])
+                         ["net.core.somaxconn = 16384",
+                          "net.ipv4.ip_local_port_range = 1024 65535"])
 def test_sysctl_bossjones(host, f):
     kern_values = host.file("/etc/sysctl.d/10-bossjones.conf")
     assert kern_values.contains(f)
@@ -99,31 +89,31 @@ def test_sysctl_bossjones(host, f):
     assert kern_values.mode == 0o644
 
 
-@pytest.mark.parametrize('f',
-                         ["kernel.printk = 4 4 1 7"])
-def test_console_messages(host, f):
-    kern_values = host.file("/etc/sysctl.d/10-console-messages.conf")
-    assert kern_values.contains(f)
-    assert kern_values.user == "root"
-    assert kern_values.group == "root"
-    assert kern_values.mode == 0o644
+# @pytest.mark.parametrize('f',
+#                          ["kernel.printk = 4 4 1 7"])
+# def test_console_messages(host, f):
+#     kern_values = host.file("/etc/sysctl.d/10-console-messages.conf")
+#     assert kern_values.contains(f)
+#     assert kern_values.user == "root"
+#     assert kern_values.group == "root"
+#     assert kern_values.mode == 0o644
 
 
-@pytest.mark.parametrize('f',
-                         ["net.ipv6.conf.all.use_tempaddr = 2",
-                          "net.ipv6.conf.default.use_tempaddr = 2"])
-def test_kern_privacy(host, f):
-    kern_values = host.file("/etc/sysctl.d/10-ipv6-privacy.conf")
-    assert kern_values.contains(f)
-    assert kern_values.user == "root"
-    assert kern_values.group == "root"
-    assert kern_values.mode == 0o644
+# @pytest.mark.parametrize('f',
+#                          ["net.ipv6.conf.all.use_tempaddr = 2",
+#                           "net.ipv6.conf.default.use_tempaddr = 2"])
+# def test_kern_privacy(host, f):
+#     kern_values = host.file("/etc/sysctl.d/10-ipv6-privacy.conf")
+#     assert kern_values.contains(f)
+#     assert kern_values.user == "root"
+#     assert kern_values.group == "root"
+#     assert kern_values.mode == 0o644
 
-@pytest.mark.parametrize('f',
-                         ["kernel.printk = 4 4 1 7"])
-def test_kern_hardening(host, f):
-    kern_values = host.file("/etc/sysctl.d/10-console-messages.conf")
-    assert kern_values.contains(f)
-    assert kern_values.user == "root"
-    assert kern_values.group == "root"
-    assert kern_values.mode == 0o644
+# @pytest.mark.parametrize('f',
+#                          ["kernel.printk = 4 4 1 7"])
+# def test_kern_hardening(host, f):
+#     kern_values = host.file("/etc/sysctl.d/10-console-messages.conf")
+#     assert kern_values.contains(f)
+#     assert kern_values.user == "root"
+#     assert kern_values.group == "root"
+#     assert kern_values.mode == 0o644
