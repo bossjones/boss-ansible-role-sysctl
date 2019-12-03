@@ -1,18 +1,14 @@
 ---
-- name: Converge
-  hosts: all
-  become: yes
-  become_method: sudo
-  environment:
-    SHELL: /bin/bash
+- name: Converge Centos
+  hosts: "{{cluster|d('centos')}}"
+  gather_facts: True
+  become: true
+  strategy: free
+  pre_tasks:
+    - ping:
   roles:
-    # - role: boss-ansible-role-core
-    # - role: boss-ansible-role-fact
-    # - role: boss-ansible-role-environment
     - role: boss-ansible-role-sysctl
-      bossjones__user: root
-      bossjones__group: root
-      bossjones__sysctl__host_parameters:
+      behance__sysctl__host_parameters:
         'net.ipv6.conf.all.disable_ipv6':
           value: 1
           comment: |
