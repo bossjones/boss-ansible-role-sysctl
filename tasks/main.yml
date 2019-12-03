@@ -20,11 +20,11 @@
 - name: Check sysctl command capabilities
   shell: sysctl --help | grep -E '^\s+\-\-system\s+' || true
   register: bossjones__sysctl__register_system
-  when: bossjones__sysctl__register_config|changed
+  when: bossjones__sysctl__register_config
   check_mode: False
 
 - name: Apply kernel parameters if they were modified
   command: '{{ "sysctl --system"
                if (bossjones__sysctl__register_system.stdout != "")
                else ("sysctl -e -p " + bossjones__sysctl__config_file) }}'
-  when: bossjones__sysctl__register_config|changed
+  when: bossjones__sysctl__register_config
